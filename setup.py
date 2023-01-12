@@ -10,6 +10,7 @@ def get_version_num() -> str:
     input_ver = os.environ.get("TOOLCHANGER_PLUGIN_RELEASE_VERSION", "0.0.0dev0")
     return str(packaging.version.parse(input_ver))
 
+
 setuptools.setup(
     name="pytest-local-badge",
     version=get_version_num(),
@@ -25,9 +26,7 @@ setuptools.setup(
     zip_safe=False,
     include_package_data=True,
     packages=setuptools.find_packages(where="src"),
-    entry_points={
-        'pytest11': ['local_badge = pytest_local_badge.plugin']
-    },
+    entry_points={"pytest11": ["local_badge = pytest_local_badge.plugin"]},
     py_modules=[
         "pytest_local_badge",
     ],
