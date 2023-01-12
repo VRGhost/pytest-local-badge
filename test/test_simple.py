@@ -24,7 +24,7 @@ def simple_true_test(testdir):
 @pytest.mark.usefixtures("simple_true_test")
 def test_no_output_dir(testdir):
     result = testdir.runpytest(
-        "--badge-output-dir", pathlib.Path(str(testdir)) / "idontexist"
+        "--local-badge-output-dir", pathlib.Path(str(testdir)) / "idontexist"
     )
     result.stderr.fnmatch_lines(
         [
@@ -38,7 +38,7 @@ def test_no_output_dir(testdir):
 def test_disabled_and_no_output_dir(testdir):
     result = testdir.runpytest(
         "--no-local-badge",
-        "--badge-output-dir",
+        "--local-badge-output-dir",
         pathlib.Path(str(testdir)) / "idontexist",
     )
     assert result.ret == 0

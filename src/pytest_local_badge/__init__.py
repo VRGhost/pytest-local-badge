@@ -1,1 +1,1 @@
-from . import plugin
+from . import badges, plugin

@@ -3,6 +3,13 @@ import pathlib
 
 import pytest
 
+from . import badges
+
+BADGES = {
+    "status": badges.TestSuccess,
+    "status2": badges.TestSuccess,
+}
+
 
 def pytest_addoption(parser):
     group = parser.getgroup("local_badge")
@@ -13,10 +20,16 @@ def pytest_addoption(parser):
         dest="pytest_local_badge_enabled",
     )
     group.addoption(
-        "--badge-output-dir",
+        "--local-badge-output-dir",
         action="store",
         default=None,
     )
+    all_badges = list(sorted(BADGES.keys()))
+    group.addoption(
+        "--local-badge-generate", nargs="+", choices=all_badges, default=all_badges
+    )
+    for (badge_name, badge_cls) in BADGES.items():
+        badge_cls.pytest_addoption(group, badge_name)
 
 
 @pytest.hookimpl(tryfirst=True)
@@ -25,7 +38,7 @@ def pytest_load_initial_conftests(early_config, parser, args):
     print(f"{early_config.known_args_namespace.pytest_local_badge_enabled=}")
     if (
         early_config.known_args_namespace.pytest_local_badge_enabled
-        and early_config.known_args_namespace.badge_output_dir
+        and early_config.known_args_namespace.local_badge_output_dir
     ):
         plugin = LocalBadgePlugin(options)
         early_config.pluginmanager.register(plugin, "_local_badge")
@@ -43,11 +56,14 @@ class LocalBadgePlugin:
 
     def __init__(self, options):
         self.options = options
-        self.out_dir = pathlib.Path(options.badge_output_dir)
+        self.out_dir = pathlib.Path(options.local_badge_output_dir)
         if not self.out_dir.is_dir():
             raise PytestLocalBadgeError(
                 f"Badge output dir {self.out_dir} ({self.out_dir.resolve()}) does not exist or is not a directory"
             )
 
     def pytest_sessionfinish(self, session, exitstatus):
-        print("SESSION FINISH")
+        for enabled_badge_name in self.options.local_badge_generate:
+            badge_cls = BADGES[enabled_badge_name]
+            badge = badge_cls(self.out_dir, self.options)
+            badge.on_sessionfinish(session, exitstatus)
