@@ -7,7 +7,7 @@ from . import badges
 
 BADGES = {
     "status": badges.TestSuccess,
-    "status2": badges.TestSuccess,
+    "cov": badges.PytestCov,
 }
 
 
@@ -24,7 +24,7 @@ def pytest_addoption(parser):
         action="store",
         default=None,
     )
-    all_badges = list(sorted(BADGES.keys()))
+    all_badges = sorted(BADGES.keys())
     group.addoption(
         "--local-badge-generate", nargs="+", choices=all_badges, default=all_badges
     )
@@ -35,7 +35,6 @@ def pytest_addoption(parser):
 @pytest.hookimpl(tryfirst=True)
 def pytest_load_initial_conftests(early_config, parser, args):
     options = early_config.known_args_namespace
-    print(f"{early_config.known_args_namespace.pytest_local_badge_enabled=}")
     if (
         early_config.known_args_namespace.pytest_local_badge_enabled
         and early_config.known_args_namespace.local_badge_output_dir

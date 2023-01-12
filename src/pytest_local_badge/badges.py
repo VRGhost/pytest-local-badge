@@ -1,5 +1,5 @@
-import typing
 import pathlib
+import typing
 
 import genbadge
 import pytest
@@ -70,3 +70,24 @@ class TestSuccess(BadgeBase):
                 ((total_tests - failed_tests) / total_tests) * tests_success
             ),
         ).write_to(self.full_output_file_name, use_shields=False)
+
+
+class PytestCov(BadgeBase):
+    output_file_name = "coverage.svg"
+
+    def on_sessionfinish(self, session: pytest.Session, exitstatus: int):
+        tests_success = exitstatus == 0
+        if session.config.pluginmanager.hasplugin("_cov"):
+            plugin = session.config.pluginmanager.getplugin("_cov")
+            if plugin.cov_controller:
+                if plugin.cov_total:
+                    coverage_percentage = (
+                        plugin.cov_total / 100
+                    )  # The plugin returns value as an int
+                else:
+                    coverage_percentage = 0
+                genbadge.Badge(
+                    left_txt="coverage",
+                    right_txt=f"{int(coverage_percentage * 100)}%",
+                    color=self.get_colour(coverage_percentage * tests_success),
+                ).write_to(self.full_output_file_name, use_shields=False)

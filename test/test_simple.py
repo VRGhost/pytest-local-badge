@@ -37,6 +37,7 @@ def test_no_output_dir(testdir):
 @pytest.mark.usefixtures("simple_true_test")
 def test_disabled_and_no_output_dir(testdir):
     result = testdir.runpytest(
+        "--no-cov",
         "--no-local-badge",
         "--local-badge-output-dir",
         pathlib.Path(str(testdir)) / "idontexist",

@@ -1,7 +1,6 @@
 # Pytest local badge
 
 [![CI](https://github.com/VRGhost/pytest-local-badge/actions/workflows/main.yml/badge.svg)](https://github.com/VRGhost/pytest-local-badge/actions/workflows/main.yml)
-
 ![Tests](./badges/tests.svg)
 
 
