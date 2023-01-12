@@ -7,7 +7,7 @@ import packaging.version
 
 
 def get_version_num() -> str:
-    input_ver = os.environ.get("TOOLCHANGER_PLUGIN_RELEASE_VERSION", "0.0.0dev0")
+    input_ver = os.environ.get("RELEASE_VERSION", "0.0.0dev0")
     return str(packaging.version.parse(input_ver))
 
 
