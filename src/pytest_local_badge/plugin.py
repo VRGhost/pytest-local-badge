@@ -12,4 +12,5 @@ def pytest_addoption(parser):
 
 
 def pytest_sessionfinish(session, exitstatus):
-    print("HELLO WORLD", session)
+    # print("HELLO WORLD", session)
+    pass
