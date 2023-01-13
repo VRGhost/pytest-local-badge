@@ -6,18 +6,18 @@
                     <stop offset="1" stop-opacity=".1"/>
                 </linearGradient>
                 <clipPath id="r">
-                    <rect width="100%" height="19.549999999999997" rx="3" fill="#fff"/>
+                    <rect width="100%" height="18.700000000000003" rx="3" fill="#fff"/>
                 </clipPath>
                 <g clip-path="url(#r)" text-anchor="middle" dominant-baseline="middle" font-family="Verdana,Geneva,DejaVu Sans,sans-serif" font-size="10" text-rendering="geometricPrecision">
                     <g>
-                        <rect width="37.5" height="19.549999999999997" fill="#555"/>
-                        <text x="16.304347826086957" y="8.5" transform="scale(1.15) translate(1 1)" fill-opacity=".3" fill="#010101" aria-hidden="true">tests</text>
-                        <text x="16.304347826086957" y="8.5" transform="scale(1.15)" fill="#fff">tests</text>
+                        <rect width="37.5" height="18.700000000000003" fill="#555"/>
+                        <text x="17.045454545454543" y="8.5" transform="scale(1.1) translate(1 1)" fill-opacity=".3" fill="#010101" aria-hidden="true">tests</text>
+                        <text x="17.045454545454543" y="8.5" transform="scale(1.1)" fill="#fff">tests</text>
                     </g>
                     <g transform="translate(37.5 0)">
-                        <rect width="25.0" height="19.549999999999997" fill="#4c1"/>
-                        <text x="10.869565217391305" y="8.5" transform="scale(1.15) translate(1 1)" fill-opacity=".3" fill="#010101" aria-hidden="true" >83</text>
-                        <text x="10.869565217391305" y="8.5" transform="scale(1.15)" fill="#fff">83</text>
+                        <rect width="25.0" height="18.700000000000003" fill="#4c1"/>
+                        <text x="11.363636363636363" y="8.5" transform="scale(1.1) translate(1 1)" fill-opacity=".3" fill="#010101" aria-hidden="true" >83</text>
+                        <text x="11.363636363636363" y="8.5" transform="scale(1.1)" fill="#fff">83</text>
                     </g>
                     <rect width="100%" height="20" fill="url(#s)"/>
                 </g>

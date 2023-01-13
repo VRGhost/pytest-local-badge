@@ -23,7 +23,7 @@ def render(fobj, left_txt, right_txt, color):
     title = f"{left_txt}: {right_txt}"
     left_width = text_length(left_txt)
     right_width = text_length(right_txt) + 10
-    text_scale = 1.15
+    text_scale = 1.1
     badge_height = 17 * text_scale
     fobj.write(
         f"""
