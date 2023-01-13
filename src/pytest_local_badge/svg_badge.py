@@ -13,15 +13,16 @@ COLORS = {
 
 
 def text_length(text):
-    return 7.5 * len(text)
+    return 7.5 * len(text or "")
 
 
 def render(fobj, left_txt, right_txt, color):
+    left_txt = str(left_txt)
+    right_txt = str(right_txt)
     label_color = COLORS.get(color, color)
     title = f"{left_txt}: {right_txt}"
-    horiz_padding = 5
     left_width = text_length(left_txt)
-    right_width = text_length(right_txt) + 2 * horiz_padding
+    right_width = text_length(right_txt) + 10
     text_scale = 1.15
     badge_height = 17 * text_scale
     fobj.write(
