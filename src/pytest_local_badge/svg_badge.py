@@ -24,10 +24,10 @@ def render(fobj, left_txt, right_txt, color):
     left_width = text_length(left_txt)
     right_width = text_length(right_txt) + 10
     text_scale = 1.1
-    badge_height = 19 * text_scale
+    badge_height = 18 * text_scale
     fobj.write(
         f"""
-            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{left_width + right_width}" height="20" role="img" aria-label="{xml_escape(title)}">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{left_width + right_width}" height="{ badge_height }" role="img" aria-label="{xml_escape(title)}">
                 <title>{xml_escape(title)}</title>
                 <linearGradient id="s" x2="0" y2="100%">
                     <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
@@ -47,7 +47,7 @@ def render(fobj, left_txt, right_txt, color):
                         <text x="{right_width / (2 * text_scale)}" y="{badge_height / (2 * text_scale) }" transform="scale({text_scale}) translate(1 1)" fill-opacity=".3" fill="#010101" aria-hidden="true" >{xml_escape(right_txt)}</text>
                         <text x="{right_width / (2 * text_scale)}" y="{badge_height / (2 * text_scale) }" transform="scale({text_scale})" fill="#fff">{xml_escape(right_txt)}</text>
                     </g>
-                    <rect width="100%" height="20" fill="url(#s)"/>
+                    <rect width="100%" height="100%" fill="url(#s)"/>
                 </g>
             </svg>
         """
