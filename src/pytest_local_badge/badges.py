@@ -22,16 +22,12 @@ class BadgeBase:
 
     @classmethod
     def pytest_addoption(cls, option_group, my_prefix: str):
-        option_group.addoption(
-            f"--local-badge-{my_prefix}-file-name",
-            default=cls.output_file_name,
-            help="Desired output file name",
-        )
+        pass
 
     def get_colour(self, success_pct: typing.Optional[float]):
-        if success_pct is None:
+        if success_pct in (None, False):
             out = "lightgrey"
-        elif success_pct >= 0.99:
+        elif success_pct >= 0.99 or (success_pct is True):
             out = "brightgreen"
         elif success_pct >= 0.87:
             out = "green"
@@ -58,8 +54,8 @@ class TestSuccess(BadgeBase):
         tests_success = exitstatus == 0
         total_tests = session.testscollected
         failed_tests = session.testsfailed
-        succeeded_tests = total_tests - failed_tests
-        if failed_tests == 0:
+        succeeded_tests = max(total_tests - failed_tests, 0)
+        if failed_tests == 0 or (succeeded_tests == total_tests):
             right_text = f"{total_tests}"
         else:
             right_text = f"{succeeded_tests}/{total_tests}"
@@ -81,7 +77,7 @@ class PytestCov(BadgeBase):
         tests_success = exitstatus == 0
         if session.config.pluginmanager.hasplugin("_cov"):
             plugin = session.config.pluginmanager.getplugin("_cov")
-            if plugin.cov_controller:
+            if plugin and plugin.cov_controller:
                 if plugin.cov_total:
                     coverage_percentage = (
                         plugin.cov_total / 100

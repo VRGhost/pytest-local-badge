@@ -1,5 +1,6 @@
 import argparse
 import pathlib
+
 import pytest
 
 import pytest_local_badge.plugin as plugin

@@ -1,6 +1,5 @@
 """Quick and dirty test"""
 import pathlib
-import textwrap
 
 import pytest
 
