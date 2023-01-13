@@ -24,7 +24,7 @@ def render(fobj, left_txt, right_txt, color):
     left_width = text_length(left_txt)
     right_width = text_length(right_txt) + 10
     text_scale = 1.1
-    badge_height = 17 * text_scale
+    badge_height = 19 * text_scale
     fobj.write(
         f"""
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{left_width + right_width}" height="20" role="img" aria-label="{xml_escape(title)}">
