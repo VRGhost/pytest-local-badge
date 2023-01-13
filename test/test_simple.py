@@ -1,5 +1,6 @@
 """Quick and dirty test"""
 import pathlib
+import textwrap
 
 import pytest
 
@@ -43,3 +44,4 @@ def test_disabled_and_no_output_dir(testdir):
         pathlib.Path(str(testdir)) / "idontexist",
     )
     assert result.ret == 0
+    result.assert_outcomes(passed=1)

@@ -63,12 +63,14 @@ class TestSuccess(BadgeBase):
             right_text = f"{total_tests}"
         else:
             right_text = f"{succeeded_tests}/{total_tests}"
+        if (total_tests == 0) or not tests_success:
+            coverage_percentage = 0
+        else:
+            coverage_percentage = (total_tests - failed_tests) / total_tests
         genbadge.Badge(
             left_txt="tests",
             right_txt=right_text,
-            color=self.get_colour(
-                ((total_tests - failed_tests) / total_tests) * tests_success
-            ),
+            color=self.get_colour(coverage_percentage),
         ).write_to(self.full_output_file_name, use_shields=False)
 
 
