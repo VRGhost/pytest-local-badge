@@ -52,6 +52,6 @@ setuptools.setup(
             "build",
         ]
     },
-    install_requires=["pytest>=6.1.0", "genbadge>=1.1.0,<2"],
+    install_requires=["pytest>=6.1.0"],
     python_requires=">=3.7",
 )

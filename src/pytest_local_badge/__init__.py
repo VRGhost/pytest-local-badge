@@ -1,1 +1,1 @@
-from . import badges, plugin
+from . import badges, plugin, svg_badge

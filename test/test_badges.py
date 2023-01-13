@@ -7,8 +7,8 @@ import pytest_local_badge.badges as badges
 
 
 @pytest.fixture(autouse=True)
-def mock_badge_cls(mocker):
-    return mocker.patch("genbadge.Badge")
+def mock_badge_render(mocker):
+    return mocker.patch("pytest_local_badge.svg_badge.render")
 
 
 @pytest.fixture
@@ -69,8 +69,7 @@ class TestSuccessBadge:
     def test_badge_gen(
         self,
         mocker,
-        badge_output_dir,
-        mock_badge_cls,
+        mock_badge_render,
         badge_obj,
         mock_session,
         rc,
@@ -88,15 +87,11 @@ class TestSuccessBadge:
             exp_right_txt = f"{test_succeeded}/{testscollected}"
 
         badge_obj.on_sessionfinish(mock_session, rc)
-        mock_badge_cls.assert_called_once_with(
+        mock_badge_render.assert_called_once_with(
+            mocker.ANY,
             left_txt="tests",
             right_txt=exp_right_txt,
             color=mocker.ANY,
-        )
-        badge_obj = mock_badge_cls.return_value
-        badge_obj.write_to.assert_called_once_with(
-            badge_output_dir / "tests.svg",
-            use_shields=False,
         )
 
 
@@ -122,27 +117,27 @@ class TestPytestCov:
     @pytest.mark.parametrize("has_plugin", [True, False])
     @pytest.mark.parametrize("get_plugin", [True, False])
     def test_defensive_code(
-        self, mock_badge_cls, badge_obj, mock_session, has_plugin, get_plugin
+        self, mock_badge_render, badge_obj, mock_session, has_plugin, get_plugin
     ):
         mock_session.config.pluginmanager.hasplugin.side_effect = lambda _: has_plugin
         if not get_plugin:
             mock_session.config.pluginmanager.getplugin.return_value = None
 
         badge_obj.on_sessionfinish(mock_session, 0)
-        assert mock_badge_cls.called == (has_plugin and get_plugin)
+        assert mock_badge_render.called == (has_plugin and get_plugin)
 
     def test_none_cov_total(
-        self, mocker, mock_badge_cls, badge_obj, mock_session, mock_plugin
+        self, mocker, mock_badge_render, badge_obj, mock_session, mock_plugin
     ):
         mock_plugin.cov_total = None
 
         badge_obj.on_sessionfinish(mock_session, 0)
-        mock_badge_cls.assert_called_once_with(
-            color=mocker.ANY, left_txt=mocker.ANY, right_txt="0%"
+        mock_badge_render.assert_called_once_with(
+            mocker.ANY, color=mocker.ANY, left_txt=mocker.ANY, right_txt="0%"
         )
 
-    def test_100_cov_total(self, mocker, mock_badge_cls, badge_obj, mock_session):
+    def test_100_cov_total(self, mocker, mock_badge_render, badge_obj, mock_session):
         badge_obj.on_sessionfinish(mock_session, 0)
-        mock_badge_cls.assert_called_once_with(
-            color=mocker.ANY, left_txt=mocker.ANY, right_txt="100%"
+        mock_badge_render.assert_called_once_with(
+            mocker.ANY, color=mocker.ANY, left_txt=mocker.ANY, right_txt="100%"
         )
