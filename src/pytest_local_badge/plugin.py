@@ -18,15 +18,21 @@ def pytest_addoption(parser):
         action="store_false",
         default=True,
         dest="pytest_local_badge_enabled",
+        help="Disable the local badge plugin.",
     )
     group.addoption(
         "--local-badge-output-dir",
         action="store",
         default=None,
+        help="The directory to save local badges to.",
     )
     all_badges = sorted(BADGES.keys())
     group.addoption(
-        "--local-badge-generate", nargs="+", choices=all_badges, default=all_badges
+        "--local-badge-generate",
+        nargs="+",
+        choices=all_badges,
+        default=all_badges,
+        help="List of local badges to generate.",
     )
     for (badge_name, badge_cls) in BADGES.items():
         badge_cls.pytest_addoption(group, badge_name)

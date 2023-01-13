@@ -1,9 +1,9 @@
 """Install package."""
 
 import os
-import setuptools
 
 import packaging.version
+import setuptools
 
 
 def get_version_num() -> str:
@@ -14,10 +14,18 @@ def get_version_num() -> str:
 setuptools.setup(
     name="pytest-local-badge",
     version=get_version_num(),
-    description="Adds Meross Smart Plug support to OctoPrint-PSUControl",
+    description="Generate local badges (shields) reporting your test suite status.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    classifiers=[],
+    classifiers=[
+        "Environment :: Plugins",
+        "Framework :: Pytest",
+        "License :: OSI Approved :: MIT License",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+    ],
     license="MIT",
     author="Ilja Orlovs",
     author_email="vrghost@gmail.com",
