@@ -49,7 +49,12 @@ def render(fobj, left_txt, right_txt, color):
                             text-anchor: middle;
                             font-family: Verdana,Geneva,DejaVu Sans,sans-serif;
                             font-size: 11.4px;
-                            text-shadow: 1px 1px 1px #010101;
+                            fill: #fff;
+                        }}
+
+                        .shadow {{
+                            transform: translate(1px, 1px);
+                            fill: #010101;
                         }}
                     </style>
                     <title>{xml_escape(title)}</title>
@@ -63,11 +68,13 @@ def render(fobj, left_txt, right_txt, color):
                     <g clip-path="url(#r)" >
                         <g>
                             <rect width="{left_width}" fill="#555"/>
-                            <text x="{left_width / 2}" y="{badge_height / 2}" fill="#fff">{xml_escape(left_txt)}</text>
+                            <text x="{left_width / 2}" y="{badge_height / 2}" class="shadow">{xml_escape(left_txt)}</text>
+                            <text x="{left_width / 2}" y="{badge_height / 2}">{xml_escape(left_txt)}</text>
                         </g>
                         <g transform="translate({left_width} 0)">
                             <rect width="{right_width}" fill="{label_color}"/>
-                            <text x="{right_width / 2}" y="{badge_height / 2}" fill="#fff">{xml_escape(right_txt)}</text>
+                            <text x="{right_width / 2}" y="{badge_height / 2}" class="shadow">{xml_escape(right_txt)}</text>
+                            <text x="{right_width / 2}" y="{badge_height / 2}">{xml_escape(right_txt)}</text>
                         </g>
                         <rect width="100%" height="100%" fill="url(#s)"/>
                     </g>
